@@ -1,0 +1,27 @@
+hahaahahaha
+adasdasd
+int cp_file_to_file(char *filename1, char *filename2) {
+    char buf[MAX_SIZE] = {0};
+    int length;
+    FILE *open = NULL, *out = NULL;
+
+    if ((open = fopen(filename1, "r")) == NULL) {
+        printf("error: %s 文件不存在!\n", filename1);
+        return -1;
+    }
+
+    if ((out = fopen(filename2, "w")) == NULL) {
+        fclose(open);
+        printf("error: %s 文件创建失败!\n", filename2);
+        return -2;
+    }
+
+    while ((length = fread(buf, 1, MAX_SIZE, open)) > 0) {
+        fwrite(buf, 1, length, out);
+    }
+
+    fclose(open);
+    fclose(out);
+    return 0;
+}
+
